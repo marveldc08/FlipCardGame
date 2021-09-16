@@ -14,10 +14,13 @@ body{
     height: 100vh;
 }
 .card{
-    margin: 100px auto 0;
+    margin:  10px;
     width: 200px;
     height: 300px;
     perspective: 1000px;
+}
+.no-display{
+    display: none;
 }
 .card-inner{
     width: 100%;
@@ -107,7 +110,8 @@ body{
     flex-wrap: wrap;
     width: 100%;
     height: auto;
-    border: 1px soid black;
+    border: 1px solid black;
+    background-color: #212121;
     padding: 3px;
-    z-index: -1;
+    z-index: 1;
 }
