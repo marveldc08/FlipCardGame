@@ -16,8 +16,9 @@ body{
 .card{
     margin:  10px;
     width: 200px;
-    height: 300px;
+    height: 200px;
     perspective: 1000px;
+     border-radius: 16px;
 }
 .no-display{
     display: none;
@@ -29,9 +30,16 @@ body{
     transform-style: preserve-3d;
     cursor: pointer;
     position: relative;
+     border-radius: 16px;
+     border: 1px solid red;
 }
 .card-inner.isfliped{
     transform: rotateY(-180deg);
+}
+.flip{
+     transform: rotateY(-180deg);
+      transition: transform 1s;
+    transform-style: preserve-3d;
 }
 .card_face{
     position: absolute;
@@ -56,6 +64,7 @@ body{
 .card-back{
     background-color: var(--light);
     transform: rotateY(180deg);
+     
 }
 .card-content{
     width: 100%;
@@ -76,7 +85,7 @@ body{
     bottom: 0;
     z-index: -1;
     border-radius: 0 0 50% 0;
-    background-image: linear-gradient(to bottom left, var(--primary) 10%, var(--secondary)115%);
+    background-image: linear-gradient(to bottom left, var(--primary) 10%, var(--secondary) 115%);
 }
 .pro{
     display: block;
@@ -106,12 +115,15 @@ body{
     font-size: 18px;
 }
 .grid{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) ;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: auto;
     border: 1px solid black;
     background-color: #212121;
-    padding: 3px;
+    padding: 3em;
     z-index: 1;
 }
