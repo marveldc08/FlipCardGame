@@ -54,20 +54,25 @@ var cardChosen = [];
 var cardChosenId =[];
 var cardsWon= [];
 function createCard(){
+    //loop through the array
     for (let i = 0; i < cardArray.length; i++) {
+        //create card element.
         const card = document.createElement('div');
         card.classList.add('card');
+        card.setAttribute('id', i);
 
         const cardInner = document.createElement('div');
         cardInner.classList.add('card-inner'); 
+        cardInner.setAttribute('id', i);
         cardInner.addEventListener('click', function(){
-        cardInner.classList.toggle('isfliped');
-        var cardId = this.getAttribute('id');
-        cardChosen.push(cardArray[cardId].name);
-        cardChosenId.push(cardArray[cardId]);
-        if (cardChosen.length === 2) {
-            setTimeout(checkForMatch, 500);
-        }
+            //flip the card and get it's id
+            cardInner.classList.toggle('isfliped');
+            var cardId = this.getAttribute('id');
+            console.log(cardId);
+            cardChosen.push(cardArray[cardId].name);
+            cardChosenId.push(cardId);
+            console.log(cardChosenId);
+             setTimeout(selectCard, 300);
         });
 
         const cardFront = document.createElement('div');
@@ -99,28 +104,46 @@ function createCard(){
 }
 
 function selectCard(){
-   
+    if (cardChosen.length === 2) {
+      setTimeout(checkForMatch, 300);
+    }
 }
 
 
 function checkForMatch() {
     var cards = document.querySelectorAll('.card');
     var firstChoice = cardChosen[0];
+    var firstChoiceId = cardChosenId[0];
     var secondChoice = cardChosen[1];
-
+    var secondChoiceId = cardChosenId[1];
+    console.log(firstChoiceId + secondChoiceId);
     if (firstChoice === secondChoice) {
-        cards.classList.add('no-display');
-        cards.classList.add('no-display');
+        console.log(cards);
+       document.getElementById(firstChoiceId).classList.add("no-display"); 
+       document.getElementById(secondChoiceId).classList.add("no-display");
         alert('Correct!.')
+        cardsWon.push(cardChosen);
+        cardChosen.shift();
+        cardChosen.pop();
+        cardChosenId.shift();
+        cardChosenId.pop();
+        setTimeout(selectCard, 200);
     } else {
-        cards.classList.add('isfliped');
-        cards.classList.add('isfliped');
+         console.log(cards);
+         document.getElementById(firstChoiceId).classList.add("flip"); 
+          document.getElementById(secondChoiceId).classList.add("flip");
         alert('Try again!')
+         cardChosen.shift();
+         cardChosen.pop();
+         cardChosenId.shift();
+         cardChosenId.pop();
+         setTimeout(selectCard, 200);
     }
-    cardsWon.push(cardChosen);
+    
+     
 
     if (cardsWon.length === cardArray.length/2) {
-        alert('Your score is '+ cardsWon);
+        alert('Your score is '+ cardsWon.length);
     }
 }
 createCard();
